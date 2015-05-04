@@ -2,6 +2,7 @@ package com.sandbox9.devicedetector.parser;
 
 import com.sandbox9.devicedetector.domain.type.DeviceType;
 
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 
@@ -31,5 +32,15 @@ public class DeviceParserData {
 
 	public Pattern[] getPatterns() {
 		return patterns;
+	}
+
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("DeviceParserData{");
+		sb.append("deviceName='").append(deviceName).append('\'');
+		sb.append(", deviceType=").append(deviceType);
+		sb.append(", patterns=").append(Arrays.toString(patterns));
+		sb.append('}');
+		return sb.toString();
 	}
 }

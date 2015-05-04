@@ -3,22 +3,22 @@ package com.sandbox9.devicedetector.domain;
 import com.sandbox9.devicedetector.domain.type.OSType;
 
 public class OS {
-	private OSType OSType;
+	private OSType osType;
 	private String osName;
 	private String version;
 
-	public OS(com.sandbox9.devicedetector.domain.type.OSType OSType, String osName, String version) {
-		this.OSType = OSType;
+	public OS(com.sandbox9.devicedetector.domain.type.OSType osType, String osName, String version) {
+		this.osType = osType;
 		this.osName = osName;
 		this.version = version;
 	}
 
-	public OSType getOSType() {
-		return OSType;
+	public OSType getOsType() {
+		return osType;
 	}
 
-	public void setOSType(com.sandbox9.devicedetector.domain.type.OSType OSType) {
-		this.OSType = OSType;
+	public void setOsType(com.sandbox9.devicedetector.domain.type.OSType osType) {
+		this.osType = osType;
 	}
 
 	public String getOsName() {

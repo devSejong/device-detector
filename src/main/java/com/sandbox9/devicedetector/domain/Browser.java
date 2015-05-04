@@ -18,4 +18,5 @@ public class Browser {
 	public String getVersion() {
 		return version;
 	}
+
 }

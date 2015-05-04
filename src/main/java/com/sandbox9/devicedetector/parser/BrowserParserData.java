@@ -2,9 +2,11 @@ package com.sandbox9.devicedetector.parser;
 
 import com.sandbox9.devicedetector.domain.type.BrowserType;
 
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class BrowserParserData {
+
 	private BrowserType browserType;
 	private Pattern[] patterns;
 
@@ -25,4 +27,15 @@ public class BrowserParserData {
 	public Pattern[] getPatterns() {
 		return patterns;
 	}
+
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("BrowserParserData{");
+		sb.append("browserType=").append(browserType);
+		sb.append(", patterns=").append(Arrays.toString(patterns));
+		sb.append('}');
+
+		return sb.toString();
+	}
+
 }

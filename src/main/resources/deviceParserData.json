@@ -1,0 +1,37 @@
+[
+    {
+        "name": "iPhone",
+        "type" : "PHONE",
+        "patterns": [
+            ".*iPhone.*"
+        ]
+    },
+    {
+        "name": "iPhone",
+        "type" : "PHONE",
+        "patterns": [
+            ".*iPhone.*"
+        ]
+    },
+    {
+        "name": "iPod",
+        "type" : "PHONE",
+        "patterns": [
+            ".*iPod.*"
+        ]
+    },
+    {
+        "name": "iPad",
+        "type" : "TABLET",
+        "patterns": [
+            ".*iPad.*"
+        ]
+    },
+    {
+        "name": "Galaxy S5",
+        "type" : "PHONE",
+        "patterns": [
+            ".*SM-G900.*"
+        ]
+    }
+]

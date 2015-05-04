@@ -2,6 +2,7 @@ package com.sandbox9.devicedetector.parser;
 
 import com.sandbox9.devicedetector.domain.type.OSType;
 
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class OSParserData {
@@ -30,5 +31,15 @@ public class OSParserData {
 
 	public Pattern[] getPatterns() {
 		return patterns;
+	}
+
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("OSParserData{");
+		sb.append("osType=").append(osType);
+		sb.append(", osName='").append(osName).append('\'');
+		sb.append(", patterns=").append(Arrays.toString(patterns));
+		sb.append('}');
+		return sb.toString();
 	}
 }

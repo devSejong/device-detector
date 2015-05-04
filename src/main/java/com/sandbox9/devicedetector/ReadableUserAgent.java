@@ -40,7 +40,7 @@ public class ReadableUserAgent {
 	}
 
 	public OSType getOSType() {
-		return os.getOSType();
+		return os.getOsType();
 	}
 
 	public BrowserType getBrowserType() {
