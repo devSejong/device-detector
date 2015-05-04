@@ -3,9 +3,7 @@ package com.sandbox9.devicedetector;
 import com.sandbox9.devicedetector.domain.Browser;
 import com.sandbox9.devicedetector.domain.Device;
 import com.sandbox9.devicedetector.domain.OS;
-import com.sandbox9.devicedetector.type.BrowserType;
-import com.sandbox9.devicedetector.type.DeviceType;
-import com.sandbox9.devicedetector.type.OSType;
+import com.sandbox9.devicedetector.type.*;
 
 public class ReadableUserAgent {
 	private OS os;

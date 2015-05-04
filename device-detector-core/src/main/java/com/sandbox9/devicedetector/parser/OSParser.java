@@ -4,6 +4,8 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.sandbox9.devicedetector.DeviceDetectorException;
 import com.sandbox9.devicedetector.domain.OS;
+import com.sandbox9.devicedetector.domain.type.DefaultOSType;
+import com.sandbox9.devicedetector.type.ExtendedOSType;
 import com.sandbox9.devicedetector.type.OSType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +44,7 @@ public class OSParser {
 					patterns[i] = jsonPatterns.get(i).getAsString();
 				}
 
-				return new OSParserData(name, OSType.valueOf(type), patterns);
+				return new OSParserData(name, ExtendedOSType.valueOf(type), patterns);
 			}
 		}).create();
 
@@ -89,6 +91,6 @@ public class OSParser {
 		if (isOSExist)
 			return new OS(osType, osName, osVersion);
 		else
-			return new OS(osType.UNKNOWN, null, null);
+			return new OS(DefaultOSType.UNKNOWN, null, null);
 	}
 }

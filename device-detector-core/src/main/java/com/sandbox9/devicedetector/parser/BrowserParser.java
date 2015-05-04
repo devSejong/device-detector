@@ -4,7 +4,9 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.sandbox9.devicedetector.DeviceDetectorException;
 import com.sandbox9.devicedetector.domain.Browser;
+import com.sandbox9.devicedetector.domain.type.DefaultBrowserType;
 import com.sandbox9.devicedetector.type.BrowserType;
+import com.sandbox9.devicedetector.type.ExtendedBrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +39,7 @@ public class BrowserParser {
                 for (int i = 0; i < jsonPatterns.size(); i++) {
                     patterns[i] = jsonPatterns.get(i).getAsString();
                 }
-                return new BrowserParserData(BrowserType.valueOf(type), patterns);
+                return new BrowserParserData(ExtendedBrowserType.valueOf(type), patterns);
             }
         }).create();
 
@@ -78,7 +80,7 @@ public class BrowserParser {
         if (isBrowserExist)
             return new Browser(browserType, version);
         else
-            return new Browser(BrowserType.UNKONWN, null);
+            return new Browser(DefaultBrowserType.UNKNOWN, null);
     }
 
 }

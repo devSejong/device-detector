@@ -4,7 +4,9 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.sandbox9.devicedetector.DeviceDetectorException;
 import com.sandbox9.devicedetector.domain.Device;
+import com.sandbox9.devicedetector.domain.type.DefaultDeviceType;
 import com.sandbox9.devicedetector.type.DeviceType;
+import com.sandbox9.devicedetector.type.ExtendedDeviceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +44,7 @@ public class DeviceParser {
 					patterns[i] = jsonPatterns.get(i).getAsString();
 				}
 
-				return new DeviceParserData(name, DeviceType.valueOf(type), patterns);
+				return new DeviceParserData(name, ExtendedDeviceType.valueOf(type), patterns);
 			}
 		}).create();
 
@@ -87,7 +89,7 @@ public class DeviceParser {
 		if (isDeviceExist)
 			device = new Device(deviceName, deviceType);
 		else
-			device = new Device(null, DeviceType.UNKNOWN);
+			device = new Device(null, DefaultDeviceType.UNKNOWN);
 
 		return device;
 	}
