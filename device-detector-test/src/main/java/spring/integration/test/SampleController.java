@@ -1,4 +1,4 @@
-package spring.integration;
+package spring.integration.test;
 
 import com.sandbox9.devicedetector.ReadableUserAgent;
 import com.sandbox9.devicedetector.spring.integration.ReadableUserAgentHandlerMethodArgumentResolver;

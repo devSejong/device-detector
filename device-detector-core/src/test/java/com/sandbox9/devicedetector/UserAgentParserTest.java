@@ -41,6 +41,4 @@ public class UserAgentParserTest {
 		assertThat(ua.getDevice().getName(), is("Galaxy S5"));
 		assertThat(ua.getOs().getVersion(), is("5.0"));
     }
-
-
 }
