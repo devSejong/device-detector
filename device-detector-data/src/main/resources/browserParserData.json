@@ -1,0 +1,15 @@
+[
+    {
+        "type": "CHROME_MOBILE",
+        "patterns": [
+            ".*android.*Chrome/([\\d\\.]+).* Mobile.*",
+            ".*android.*Chrome/([\\d\\.]+).* (?!Mobile)"
+        ]
+    },
+    {
+        "type": "SAFARI_MOBILE",
+        "patterns": [
+            "mozilla.*applewebkit.*version/.*mobile.*safari/([\\d\\.]+).*"
+        ]
+    }
+]

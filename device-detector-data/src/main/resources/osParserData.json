@@ -1,0 +1,16 @@
+[
+    {
+        "name" : "Android",
+        "type": "ANDROID",
+        "patterns": [
+            ".*[A|a]ndroid ([\\d\\.]+).*"
+        ]
+    },
+    {
+        "name" : "IOS",
+        "type": "IOS",
+        "patterns": [
+            ".*[iPad|iPhone|iPod].*OS ([\\d\\_]+).*"
+        ]
+    }
+]
