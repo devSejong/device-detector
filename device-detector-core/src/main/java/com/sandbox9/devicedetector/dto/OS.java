@@ -1,7 +1,12 @@
-package com.sandbox9.devicedetector.domain;
+package com.sandbox9.devicedetector.dto;
 
 import com.sandbox9.devicedetector.type.BaseOSType;
 
+/**
+ * OS DTO
+ * @author devSejong
+ * @since 1.0
+ */
 public class OS {
 	private BaseOSType osType;
 	private String osName;

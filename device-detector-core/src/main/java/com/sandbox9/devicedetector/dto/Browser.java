@@ -1,7 +1,12 @@
-package com.sandbox9.devicedetector.domain;
+package com.sandbox9.devicedetector.dto;
 
 import com.sandbox9.devicedetector.type.BaseBrowserType;
 
+/**
+ * 브라우저 DTO
+ * @author devSejong
+ * @since 1.0
+ * */
 public class Browser {
 	private BaseBrowserType browserType;
 	private String version;

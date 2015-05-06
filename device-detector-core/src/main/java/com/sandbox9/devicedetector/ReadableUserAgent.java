@@ -1,10 +1,15 @@
 package com.sandbox9.devicedetector;
 
-import com.sandbox9.devicedetector.domain.Browser;
-import com.sandbox9.devicedetector.domain.Device;
-import com.sandbox9.devicedetector.domain.OS;
+import com.sandbox9.devicedetector.dto.Browser;
+import com.sandbox9.devicedetector.dto.Device;
+import com.sandbox9.devicedetector.dto.OS;
 import com.sandbox9.devicedetector.type.*;
 
+/**
+ * useragent를 파싱한 결과가 담기는 DTO
+ * @author devSejong
+ * @since 1.0
+ */
 public class ReadableUserAgent {
 	private OS os;
 	private Device device;

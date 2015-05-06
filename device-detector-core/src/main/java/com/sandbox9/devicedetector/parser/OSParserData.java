@@ -5,6 +5,12 @@ import com.sandbox9.devicedetector.type.BaseOSType;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+
+/**
+ * OS 패턴 타입이 담긴 DTO
+ * @author devSejong
+ * @since 1.0
+ */
 public class OSParserData {
 	private BaseOSType osType;
 	private String osName;

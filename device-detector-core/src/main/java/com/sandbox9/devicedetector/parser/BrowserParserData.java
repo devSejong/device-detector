@@ -5,6 +5,11 @@ import com.sandbox9.devicedetector.type.BaseBrowserType;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+/**
+ * 브라우저 패턴 및 타입이 담긴 DTO
+ * @author devSejong
+ * @since 1.0
+ */
 public class BrowserParserData {
 
 	private BaseBrowserType browserType;

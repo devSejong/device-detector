@@ -1,5 +1,10 @@
 package com.sandbox9.devicedetector;
 
+/**
+ * 기기식별 중 발생하는 예외
+ * @author devSejong
+ * @since 1.0
+ */
 public class DeviceDetectorException extends RuntimeException{
 
     public DeviceDetectorException(String message) {

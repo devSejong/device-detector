@@ -5,7 +5,11 @@ import com.sandbox9.devicedetector.type.BaseDeviceType;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-
+/**
+ * 디바이스 이름 패턴 타입이 담긴 DTO
+ * @author devSejong
+ * @since 1.0
+ */
 public class DeviceParserData {
 	private String deviceName;
 	private BaseDeviceType deviceType;

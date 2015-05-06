@@ -2,8 +2,8 @@ package com.sandbox9.devicedetector.parser;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.sandbox9.devicedetector.domain.Browser;
-import com.sandbox9.devicedetector.domain.type.DefaultBrowserType;
+import com.sandbox9.devicedetector.dto.Browser;
+import com.sandbox9.devicedetector.dto.type.DefaultBrowserType;
 import com.sandbox9.devicedetector.type.BaseBrowserType;
 import com.sandbox9.devicedetector.type.BrowserType;
 import org.slf4j.Logger;
@@ -19,11 +19,21 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 객체 초기화시 device-detector-data 프로젝트에 정의된 브라우저 정보를 가져와 클래스 내부에 저장한다.
+ * parse 메서드를 호출 시 저장된 정보를 기준으로 매칭되는 브라우저 정보를 반환한다.
+ * @author devSejong
+ * @since 1.0
+ */
 public class BrowserParser {
     private static final Logger logger = LoggerFactory.getLogger(BrowserParser.class);
 
     private Set<BrowserParserData> browserParserDatas;
 
+    /**
+     * device-detector-core 프로젝트 내부 /device-detector/browser.json을 해석하여 브라우저 정보를
+     * Set<BrowserParserData>의 형태로 변환하여 내부에 저장한다.
+     */
     public BrowserParser() {
         browserParserDatas = new HashSet<>();
 
@@ -60,6 +70,12 @@ public class BrowserParser {
         }
     }
 
+    /**
+     * userAgent를 기준으로 브라우저 정보를 식별하고 반환한다.
+     *
+     * @param userAgentString
+     * @return
+     */
     public Browser parse(String userAgentString) {
         boolean isBrowserExist = false;
         String version = null;
