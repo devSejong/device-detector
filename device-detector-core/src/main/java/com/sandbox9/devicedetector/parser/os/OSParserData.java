@@ -1,4 +1,4 @@
-package com.sandbox9.devicedetector.parser;
+package com.sandbox9.devicedetector.parser.os;
 
 import com.sandbox9.devicedetector.type.BaseOSType;
 

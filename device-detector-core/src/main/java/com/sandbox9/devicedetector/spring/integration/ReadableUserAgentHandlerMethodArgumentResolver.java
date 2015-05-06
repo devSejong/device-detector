@@ -1,12 +1,14 @@
 package com.sandbox9.devicedetector.spring.integration;
 
-import com.sandbox9.devicedetector.ReadableUserAgent;
+import com.sandbox9.devicedetector.dto.ReadableUserAgent;
 import com.sandbox9.devicedetector.UserAgentParser;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Spring@MVC에서 파라미터로 UserAgent를 받을 수 있도록 만들어 주는 argument resolver
@@ -30,7 +32,7 @@ public class ReadableUserAgentHandlerMethodArgumentResolver implements HandlerMe
                                   NativeWebRequest request,
                                   WebDataBinderFactory binderFactory) throws Exception {
 
-        return parser.parse(request.getHeader("User-Agent"));
+        return parser.parse(request.getNativeRequest(HttpServletRequest.class));
     }
 
 }

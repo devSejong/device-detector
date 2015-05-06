@@ -1,11 +1,14 @@
 package com.sandbox9.devicedetector;
 
 import com.sandbox9.devicedetector.dto.Browser;
-import com.sandbox9.devicedetector.dto.OS;
 import com.sandbox9.devicedetector.dto.Device;
-import com.sandbox9.devicedetector.parser.BrowserParser;
-import com.sandbox9.devicedetector.parser.DeviceParser;
-import com.sandbox9.devicedetector.parser.OSParser;
+import com.sandbox9.devicedetector.dto.OS;
+import com.sandbox9.devicedetector.dto.ReadableUserAgent;
+import com.sandbox9.devicedetector.parser.browser.BrowserParser;
+import com.sandbox9.devicedetector.parser.device.DeviceParser;
+import com.sandbox9.devicedetector.parser.os.OSParser;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 입력받은 String값을 기준으로 기기정보, 브라우저, OS등을 식별한 뒤
@@ -28,13 +31,15 @@ public class UserAgentParser {
 	/**
 	 * user-agent 문자열을 기반으로 기기식별 정보를 반환한다.
 	 *
-	 * @param userAgentString
+	 * @param request
 	 * @return
 	 */
-	public ReadableUserAgent parse(String userAgentString) {
+	public ReadableUserAgent parse(HttpServletRequest request) {
+		String userAgentString = request.getHeader("User-Agent");
 		OS os = osParser.parse(userAgentString);
 		Browser browser = browserParser.parse(userAgentString);
-		Device device = deviceParser.parse(userAgentString);
+		Device device = deviceParser.parse(request);
+
 
 		return new ReadableUserAgent(os, device, browser, userAgentString);
 	}

@@ -1,14 +1,14 @@
-package com.sandbox9.devicedetector.parser;
+package com.sandbox9.devicedetector.parser.device;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.sandbox9.devicedetector.dto.Device;
-import com.sandbox9.devicedetector.dto.type.DefaultDeviceType;
 import com.sandbox9.devicedetector.type.BaseDeviceType;
 import com.sandbox9.devicedetector.type.DeviceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 /**
  * 객체 초기화시 device-detector-data 프로젝트에 정의된 디바이스 정보를 가져와 클래스 내부에 저장한다.
  * parse 메서드를 호출 시 저장된 정보를 기준으로 매칭되는 디바이스 정보를 반환한다.
+ *
  * @author devSejong
  * @since 1.0
  */
@@ -29,6 +30,7 @@ public class DeviceParser {
     private static final Logger logger = LoggerFactory.getLogger(DeviceParser.class);
 
     Set<DeviceParserData> deviceParserDatas;
+    LightDeviceTypeParser lightDeviceTypeParser;
 
     /**
      * device-detector-core 프로젝트 내부 /device-detector/device.json을 해석하여 디바이스 정보를
@@ -36,6 +38,7 @@ public class DeviceParser {
      */
     public DeviceParser() {
         deviceParserDatas = new HashSet<>();
+        lightDeviceTypeParser = new LightDeviceTypeParser();
 
         Gson gson = new GsonBuilder().registerTypeAdapter(DeviceParserData.class, new JsonDeserializer<DeviceParserData>() {
             @Override
@@ -56,7 +59,8 @@ public class DeviceParser {
             }
         }).create();
 
-        Type type = new TypeToken<Set<DeviceParserData>>() {}.getType();
+        Type type = new TypeToken<Set<DeviceParserData>>() {
+        }.getType();
         InputStream resourceInputStream = getClass().getResourceAsStream("/device-detector/device.json");
         Reader reader = new InputStreamReader(resourceInputStream);
 
@@ -83,10 +87,11 @@ public class DeviceParser {
     /**
      * userAgent를 기준으로 브라우저 정보를 식별하고 반환한다.
      *
-     * @param userAgentString
+     * @param request
      * @return
      */
-    public Device parse(String userAgentString) {
+    public Device parse(HttpServletRequest request) {
+        String userAgentString = request.getHeader("User-Agent");
         boolean isDeviceExist = false;
         BaseDeviceType deviceType = null;
         String deviceName = null;
@@ -113,10 +118,16 @@ public class DeviceParser {
 
         Device device;
 
+        if (isDeviceExist) {
+            device = new Device(deviceName, deviceType);
+        } else {
+            //디바이스를 찾지 못했을 경우, LightDeviceTypeParser에서 Device를 조회해 온다.
+            device = new Device(null, lightDeviceTypeParser.parse(request));
+        }
+
         if (isDeviceExist)
             device = new Device(deviceName, deviceType);
-        else
-            device = new Device(null, DefaultDeviceType.UNKNOWN);
+
 
         return device;
     }

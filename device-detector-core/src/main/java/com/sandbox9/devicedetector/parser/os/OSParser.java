@@ -1,4 +1,4 @@
-package com.sandbox9.devicedetector.parser;
+package com.sandbox9.devicedetector.parser.os;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;

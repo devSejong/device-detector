@@ -1,4 +1,4 @@
-package com.sandbox9.devicedetector.parser;
+package com.sandbox9.devicedetector.parser.browser;
 
 import com.sandbox9.devicedetector.type.BaseBrowserType;
 

@@ -1,9 +1,8 @@
-package com.sandbox9.devicedetector;
+package com.sandbox9.devicedetector.dto;
 
-import com.sandbox9.devicedetector.dto.Browser;
-import com.sandbox9.devicedetector.dto.Device;
-import com.sandbox9.devicedetector.dto.OS;
-import com.sandbox9.devicedetector.type.*;
+import com.sandbox9.devicedetector.type.BaseBrowserType;
+import com.sandbox9.devicedetector.type.BaseDeviceType;
+import com.sandbox9.devicedetector.type.BaseOSType;
 
 /**
  * useragent를 파싱한 결과가 담기는 DTO

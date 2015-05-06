@@ -11,13 +11,12 @@ import java.util.List;
 
 @SpringBootApplication
 public class Application extends WebMvcConfigurerAdapter {
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new ReadableUserAgentHandlerMethodArgumentResolver());
     }
 
-    @Override
-    public void addArgumentResolvers(
-            List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new ReadableUserAgentHandlerMethodArgumentResolver());
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
     }
 }
