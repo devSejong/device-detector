@@ -1,4 +1,4 @@
 package com.sandbox9.devicedetector.type;
 
-public interface BrowserType {
+public interface BaseBrowserType {
 }

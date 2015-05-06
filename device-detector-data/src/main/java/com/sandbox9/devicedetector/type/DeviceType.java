@@ -1,5 +1,5 @@
 package com.sandbox9.devicedetector.type;
 
-public enum ExtendedDeviceType implements DeviceType {
+public enum DeviceType implements BaseDeviceType {
 	PHONE, TABLET, PC
 }

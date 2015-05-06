@@ -1,17 +1,17 @@
 package com.sandbox9.devicedetector.domain;
 
-import com.sandbox9.devicedetector.type.DeviceType;
+import com.sandbox9.devicedetector.type.BaseDeviceType;
 
 public class Device {
-	private DeviceType deviceType;
+	private BaseDeviceType deviceType;
 	private String name;
 
-	public Device(String name, DeviceType deviceType) {
+	public Device(String name, BaseDeviceType deviceType) {
 		this.name = name;
 		this.deviceType = deviceType;
 	}
 
-	public DeviceType getDeviceType() {
+	public BaseDeviceType getDeviceType() {
 		return deviceType;
 	}
 

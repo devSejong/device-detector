@@ -1,17 +1,17 @@
 package com.sandbox9.devicedetector.parser;
 
-import com.sandbox9.devicedetector.type.OSType;
+import com.sandbox9.devicedetector.type.BaseOSType;
 
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class OSParserData {
-	private OSType osType;
+	private BaseOSType osType;
 	private String osName;
 
 	private Pattern[] patterns;
 
-	public OSParserData(String osName, OSType osType, String[] patterns) {
+	public OSParserData(String osName, BaseOSType osType, String[] patterns) {
 		this.osType = osType;
 
 		Pattern[] internalPatterns = new Pattern[patterns.length];
@@ -21,7 +21,7 @@ public class OSParserData {
 		this.patterns = internalPatterns;
 	}
 
-	public OSType getOsType() {
+	public BaseOSType getOsType() {
 		return osType;
 	}
 

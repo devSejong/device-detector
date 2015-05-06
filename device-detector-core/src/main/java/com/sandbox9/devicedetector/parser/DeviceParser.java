@@ -2,96 +2,107 @@ package com.sandbox9.devicedetector.parser;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.sandbox9.devicedetector.DeviceDetectorException;
 import com.sandbox9.devicedetector.domain.Device;
 import com.sandbox9.devicedetector.domain.type.DefaultDeviceType;
+import com.sandbox9.devicedetector.type.BaseDeviceType;
 import com.sandbox9.devicedetector.type.DeviceType;
-import com.sandbox9.devicedetector.type.ExtendedDeviceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Type;
-import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DeviceParser {
-	private static final Logger logger = LoggerFactory.getLogger(DeviceParser.class);
+    private static final Logger logger = LoggerFactory.getLogger(DeviceParser.class);
 
-	Set<DeviceParserData> deviceParserDatas;
+    Set<DeviceParserData> deviceParserDatas;
 
-	public DeviceParser() {
-		//데이터를 읽어옴
-		deviceParserDatas = new HashSet<>();
+    public DeviceParser() {
+        deviceParserDatas = new HashSet<>();
 
-		Gson gson = new GsonBuilder().registerTypeAdapter(DeviceParserData.class, new JsonDeserializer<DeviceParserData>() {
-			@Override
-			public DeviceParserData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-				JsonObject jsonObject = json.getAsJsonObject();
+        Gson gson = new GsonBuilder().registerTypeAdapter(DeviceParserData.class, new JsonDeserializer<DeviceParserData>() {
+            @Override
+            public DeviceParserData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                JsonObject jsonObject = json.getAsJsonObject();
 
-				String type = jsonObject.get("type").getAsString();
-				String name = jsonObject.get("name").getAsString();
-				JsonArray jsonPatterns = jsonObject.getAsJsonArray("patterns");
+                String type = jsonObject.get("type").getAsString();
+                String name = jsonObject.get("name").getAsString();
+                JsonArray jsonPatterns = jsonObject.getAsJsonArray("patterns");
 
-				String[] patterns = new String[jsonPatterns.size()];
+                String[] patterns = new String[jsonPatterns.size()];
 
-				for (int i = 0; i < jsonPatterns.size(); i++) {
-					patterns[i] = jsonPatterns.get(i).getAsString();
-				}
+                for (int i = 0; i < jsonPatterns.size(); i++) {
+                    patterns[i] = jsonPatterns.get(i).getAsString();
+                }
 
-				return new DeviceParserData(name, ExtendedDeviceType.valueOf(type), patterns);
-			}
-		}).create();
+                return new DeviceParserData(name, DeviceType.valueOf(type), patterns);
+            }
+        }).create();
 
-		try {
-			Type type = new TypeToken<Set<DeviceParserData>>() {}.getType();
-			Set<DeviceParserData> parserDatas = gson.fromJson(new FileReader(new File(getClass().getResource("/deviceParserData.json").toURI())), type);
+        Type type = new TypeToken<Set<DeviceParserData>>() {}.getType();
+        InputStream resourceInputStream = getClass().getResourceAsStream("/device-detector/device.json");
+        Reader reader = new InputStreamReader(resourceInputStream);
 
-			this.deviceParserDatas = parserDatas;
+        Set<DeviceParserData> parserDatas = gson.fromJson(reader, type);
 
-		} catch (FileNotFoundException | URISyntaxException e) {
-			throw new DeviceDetectorException("변환 중 에러 발생", e);
-		}
-	}
+        this.deviceParserDatas = parserDatas;
 
-	public Device parse(String userAgentString) {
-		boolean isDeviceExist = false;
-		DeviceType deviceType = null;
-		String deviceName = null;
+        if (reader != null) {
+            try {
+                reader.close();
+            } catch (IOException e) {
+            }
+        }
 
-		logger.debug("Finding Device. UserAgent = '{}', ", userAgentString);
+        if (resourceInputStream != null) {
+            try {
+                resourceInputStream.close();
+            } catch (IOException e) {
+            }
+        }
 
-		for (DeviceParserData deviceParserData : deviceParserDatas) {
-			for (Pattern pattern : deviceParserData.getPatterns()) {
-				Matcher matcher = pattern.matcher(userAgentString);
-				if(logger.isDebugEnabled())
-					logger.debug("pattern : '{}', isMatch : {}", pattern, matcher.matches());
+    }
 
-				if (matcher.matches()) {
-					isDeviceExist = true;
-					deviceName = deviceParserData.getDeviceName();
-					deviceType = deviceParserData.getDeviceType();
+    public Device parse(String userAgentString) {
+        boolean isDeviceExist = false;
+        BaseDeviceType deviceType = null;
+        String deviceName = null;
 
-					break;
-				}
-			}
+        logger.debug("Finding Device. UserAgent = '{}', ", userAgentString);
 
-			if (isDeviceExist) break;
-		}
+        for (DeviceParserData deviceParserData : deviceParserDatas) {
+            for (Pattern pattern : deviceParserData.getPatterns()) {
+                Matcher matcher = pattern.matcher(userAgentString);
+                if (logger.isDebugEnabled())
+                    logger.debug("pattern : '{}', isMatch : {}", pattern, matcher.matches());
 
-		Device device;
+                if (matcher.matches()) {
+                    isDeviceExist = true;
+                    deviceName = deviceParserData.getDeviceName();
+                    deviceType = deviceParserData.getDeviceType();
 
-		if (isDeviceExist)
-			device = new Device(deviceName, deviceType);
-		else
-			device = new Device(null, DefaultDeviceType.UNKNOWN);
+                    break;
+                }
+            }
 
-		return device;
-	}
+            if (isDeviceExist) break;
+        }
+
+        Device device;
+
+        if (isDeviceExist)
+            device = new Device(deviceName, deviceType);
+        else
+            device = new Device(null, DefaultDeviceType.UNKNOWN);
+
+        return device;
+    }
 
 }

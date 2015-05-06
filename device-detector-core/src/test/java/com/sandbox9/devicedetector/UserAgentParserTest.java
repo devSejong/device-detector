@@ -1,14 +1,14 @@
 package com.sandbox9.devicedetector;
 
-import com.sandbox9.devicedetector.type.ExtendedBrowserType;
-import com.sandbox9.devicedetector.type.ExtendedDeviceType;
-import com.sandbox9.devicedetector.type.ExtendedOSType;
+import com.sandbox9.devicedetector.type.BrowserType;
+import com.sandbox9.devicedetector.type.DeviceType;
+import com.sandbox9.devicedetector.type.OSType;
 import org.junit.Test;
 
 import static com.sandbox9.devicedetector.DeviceDetectorMatcher.*;
-import static com.sandbox9.devicedetector.type.ExtendedBrowserType.CHROME_MOBILE;
-import static com.sandbox9.devicedetector.type.ExtendedDeviceType.PHONE;
-import static com.sandbox9.devicedetector.type.ExtendedOSType.ANDROID;
+import static com.sandbox9.devicedetector.type.BrowserType.CHROME_MOBILE;
+import static com.sandbox9.devicedetector.type.DeviceType.PHONE;
+import static com.sandbox9.devicedetector.type.OSType.ANDROID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -20,10 +20,10 @@ public class UserAgentParserTest {
         String userAgentString = "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A366 Safari/600.1.4";
         ReadableUserAgent ua = userAgentParser.parse(userAgentString);
 
-        assertThat(ua.getDeviceType(), isSameDeviceType(ExtendedDeviceType.PC));
-        assertThat(ua.getOSType(), isSameOsType(ExtendedOSType.IOS));
+        assertThat(ua.getDeviceType(), isSameDeviceType(DeviceType.PHONE));
+        assertThat(ua.getOSType(), isSameOsType(OSType.IOS));
         assertThat(ua.getOs().getVersion(), is("8_0_2"));
-        assertThat(ua.getBrowserType(), isSameBrowserType(ExtendedBrowserType.SAFARI_MOBILE));
+        assertThat(ua.getBrowserType(), isSameBrowserType(BrowserType.SAFARI_MOBILE));
         assertThat(ua.getBrowser().getVersion(), is("600.1.4"));
         assertThat(ua.getDevice().getName(), is("iPhone"));
     }

@@ -1,16 +1,16 @@
 package com.sandbox9.devicedetector.parser;
 
-import com.sandbox9.devicedetector.type.BrowserType;
+import com.sandbox9.devicedetector.type.BaseBrowserType;
 
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class BrowserParserData {
 
-	private BrowserType browserType;
+	private BaseBrowserType browserType;
 	private Pattern[] patterns;
 
-	public BrowserParserData(BrowserType browserType, String[] patterns) {
+	public BrowserParserData(BaseBrowserType browserType, String[] patterns) {
 		this.browserType = browserType;
 
 		Pattern[] internalPatterns = new Pattern[patterns.length];
@@ -20,7 +20,7 @@ public class BrowserParserData {
 		this.patterns = internalPatterns;
 	}
 
-	public BrowserType getBrowserType() {
+	public BaseBrowserType getBrowserType() {
 		return browserType;
 	}
 

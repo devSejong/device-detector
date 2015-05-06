@@ -33,15 +33,15 @@ public class ReadableUserAgent {
 		return browser;
 	}
 
-	public DeviceType getDeviceType() {
+	public BaseDeviceType getDeviceType() {
 		return device.getDeviceType();
 	}
 
-	public OSType getOSType() {
+	public BaseOSType getOSType() {
 		return os.getOsType();
 	}
 
-	public BrowserType getBrowserType() {
+	public BaseBrowserType getBrowserType() {
 		return browser.getBrowserType();
 	}
 

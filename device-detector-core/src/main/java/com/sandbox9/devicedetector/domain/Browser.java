@@ -1,17 +1,17 @@
 package com.sandbox9.devicedetector.domain;
 
-import com.sandbox9.devicedetector.type.BrowserType;
+import com.sandbox9.devicedetector.type.BaseBrowserType;
 
 public class Browser {
-	private BrowserType browserType;
+	private BaseBrowserType browserType;
 	private String version;
 
-	public Browser(BrowserType browserType, String version) {
+	public Browser(BaseBrowserType browserType, String version) {
 		this.browserType = browserType;
 		this.version = version;
 	}
 
-	public BrowserType getBrowserType() {
+	public BaseBrowserType getBrowserType() {
 		return browserType;
 	}
 

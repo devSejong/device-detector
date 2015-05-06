@@ -1,6 +1,6 @@
 package com.sandbox9.devicedetector.parser;
 
-import com.sandbox9.devicedetector.type.DeviceType;
+import com.sandbox9.devicedetector.type.BaseDeviceType;
 
 import java.util.Arrays;
 import java.util.regex.Pattern;
@@ -8,10 +8,10 @@ import java.util.regex.Pattern;
 
 public class DeviceParserData {
 	private String deviceName;
-	private DeviceType deviceType;
+	private BaseDeviceType deviceType;
 	private Pattern[] patterns;
 
-	public DeviceParserData(String deviceName, DeviceType deviceType, String[] patterns) {
+	public DeviceParserData(String deviceName, BaseDeviceType deviceType, String[] patterns) {
 		this.deviceName = deviceName;
 		this.deviceType = deviceType;
 
@@ -26,7 +26,7 @@ public class DeviceParserData {
 		return deviceName;
 	}
 
-	public DeviceType getDeviceType() {
+	public BaseDeviceType getDeviceType() {
 		return deviceType;
 	}
 

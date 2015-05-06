@@ -1,5 +1,5 @@
 package com.sandbox9.devicedetector.type;
 
-public enum ExtendedBrowserType implements BrowserType {
+public enum BrowserType implements BaseBrowserType {
     CHROME_MOBILE, SAFARI_MOBILE;
 }

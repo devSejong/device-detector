@@ -2,19 +2,18 @@ package com.sandbox9.devicedetector.parser;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.sandbox9.devicedetector.DeviceDetectorException;
 import com.sandbox9.devicedetector.domain.OS;
 import com.sandbox9.devicedetector.domain.type.DefaultOSType;
-import com.sandbox9.devicedetector.type.ExtendedOSType;
 import com.sandbox9.devicedetector.type.OSType;
+import com.sandbox9.devicedetector.type.BaseOSType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Type;
-import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -26,7 +25,6 @@ public class OSParser {
 	Set<OSParserData> osParserDatas;
 
 	public OSParser() {
-		//데이터를 읽어옴
 		osParserDatas = new HashSet<>();
 
 		Gson gson = new GsonBuilder().registerTypeAdapter(OSParserData.class, new JsonDeserializer<OSParserData>() {
@@ -44,25 +42,36 @@ public class OSParser {
 					patterns[i] = jsonPatterns.get(i).getAsString();
 				}
 
-				return new OSParserData(name, ExtendedOSType.valueOf(type), patterns);
+				return new OSParserData(name, OSType.valueOf(type), patterns);
 			}
 		}).create();
 
-		try {
-			Type type = new TypeToken<Set<OSParserData>>() {}.getType();
-			Set<OSParserData> parserDatas = gson.fromJson(new FileReader(new File(getClass().getResource("/osParserData.json").toURI())), type);
+		Type type = new TypeToken<Set<OSParserData>>() {}.getType();
+		InputStream resourceInputStream = getClass().getResourceAsStream("/device-detector/os.json");
+		Reader reader = new InputStreamReader(resourceInputStream);
 
-			this.osParserDatas = parserDatas;
+		Set<OSParserData> parserDatas = gson.fromJson(reader, type);
 
-		} catch (FileNotFoundException | URISyntaxException e) {
-			throw new DeviceDetectorException("변환 중 에러 발생", e);
+		this.osParserDatas = parserDatas;
+
+		if (reader != null) {
+			try {
+				reader.close();
+			} catch (IOException e) {
+			}
 		}
 
+		if (resourceInputStream != null) {
+			try {
+				resourceInputStream.close();
+			} catch (IOException e) {
+			}
+		}
 	}
 
 	public OS parse(String userAgentString) {
 		boolean isOSExist = false;
-		OSType osType = null;
+		BaseOSType osType = null;
 		String osName = null;
 		String osVersion = null;
 
